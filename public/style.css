@@ -1,0 +1,464 @@
+/* ─── Reset ─────────────────────────────────────────── */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ─── Palette ────────────────────────────────────────── */
+:root {
+    --ink:        #2b1d0e;
+    --ink-light:  #5c3d20;
+    --parchment:  #f5ead6;
+    --parchment-dark: #e8d5b5;
+    --parchment-deep: #d9c49a;
+    --sepia:      #54482a;
+    --sepia-dark: #5a4720;
+    --red-wax:    #8b2020;
+    --red-wax-light: #b84444;
+    --cream:      #fdf6e9;
+}
+
+.logo-image {
+    filter: invert(1);
+}
+
+/* ─── Background parchment texture ──────────────────── */
+body {
+    min-height: 100vh;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    color: var(--ink);
+    background-color: var(--parchment);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.parchment-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background:
+        radial-gradient(ellipse at 20% 20%, rgba(196,164,90,0.18) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 80%, rgba(139,32,32,0.08) 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 50%, rgba(245,234,214,1) 0%, rgba(217,196,154,1) 100%);
+    /* subtle noise grain via SVG filter trick */
+    filter: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeBlend in='SourceGraphic' mode='multiply'/%3E%3C/filter%3E%3C/svg%3E#n");
+}
+
+.vignette {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    background: radial-gradient(ellipse at center, transparent 55%, rgba(43,29,14,0.38) 100%);
+    pointer-events: none;
+}
+
+/* ─── Everything above backgrounds ──────────────────── */
+header, #login-section, #register-section, #app-section {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 620px;
+    padding: 0 24px;
+}
+
+/* ─── Header ─────────────────────────────────────────── */
+.site-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 90px 10px 0px;
+    height: 80px;
+}
+
+.site-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 36px 0 20px;
+    border-bottom: 1px solid var(--sepia);
+    margin-bottom: 32px;
+}
+
+.site-title {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 3.2rem;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+    line-height: 1;
+    padding: 40px 0px 12px;
+}
+
+.header-ornament {
+    font-size: 1.4rem;
+    color: var(--sepia-dark);
+    opacity: 0.7;
+}
+
+/* ─── Form Card ───────────────────────────────────────── */
+.form-card {
+    background: var(--cream);
+    border: 1px solid var(--sepia);
+    border-radius: 2px;
+    padding: 40px 44px 44px;
+    box-shadow:
+        0 2px 0 var(--parchment-deep),
+        0 4px 0 rgba(43,29,14,0.08),
+        0 12px 40px rgba(43,29,14,0.18),
+        inset 0 0 60px rgba(196,164,90,0.07);
+    text-align: center;
+    position: relative;
+    margin-bottom: 40px;
+    animation: fadeUp 0.55s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+.form-card::before,
+.form-card::after {
+    content: '';
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--sepia), transparent);
+}
+.form-card::before { top: 12px; }
+.form-card::after  { bottom: 12px; }
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Wax seal ────────────────────────────────────────── */
+.wax-seal {
+    width: 56px;
+    height: 56px;
+    background: radial-gradient(circle at 38% 35%, var(--red-wax-light), var(--red-wax));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.75);
+    font-size: 1.4rem;
+    margin: 0 auto 24px;
+    box-shadow: 0 3px 12px rgba(139,32,32,0.45), inset 0 1px 3px rgba(255,255,255,0.2);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    position: relative;
+    top: -68px;
+    margin-bottom: -44px;
+}
+
+/* ─── Form typography ─────────────────────────────────── */
+.form-title {
+    font-family: 'IM Fell English', Georgia, serif;
+    font-size: 1.75rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 6px;
+    letter-spacing: 0.01em;
+}
+
+.form-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    color: var(--ink-light);
+    margin-bottom: 28px;
+    font-style: italic;
+}
+
+/* ─── Fields ──────────────────────────────────────────── */
+.field-group {
+    text-align: left;
+    margin-bottom: 18px;
+}
+
+.field-label {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sepia-dark);
+    margin-bottom: 6px;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="user"],
+input[type="partnerEmail"],
+input[type="text"] {
+    width: 100%;
+    padding: 10px 14px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    color: var(--ink);
+    background: var(--parchment);
+    border: 1px solid var(--parchment-deep);
+    border-bottom: 1px solid var(--sepia);
+    border-radius: 1px;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+input:focus {
+    background: #fff;
+    border-color: var(--sepia-dark);
+    box-shadow: 0 1px 0 var(--sepia-dark);
+}
+
+input::placeholder {
+    color: var(--sepia);
+    opacity: 0.7;
+    font-style: italic;
+}
+
+/* ─── Buttons ─────────────────────────────────────────── */
+.btn-primary {
+    display: block;
+    width: 100%;
+    padding: 13px 20px;
+    margin-top: 24px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--cream);
+    background: var(--ink);
+    border: none;
+    border-radius: 1px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.05), transparent);
+    pointer-events: none;
+}
+
+.btn-primary:hover  { background: var(--ink-light); }
+.btn-primary:active { transform: scale(0.99); }
+
+.btn-ghost {
+    display: block;
+    width: 100%;
+    padding: 10px 20px;
+    margin-top: 12px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--ink-light);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s;
+    text-decoration: underline;
+    text-decoration-color: var(--sepia);
+    text-underline-offset: 3px;
+}
+
+.btn-ghost:hover { color: var(--ink); }
+
+/* ─── App section header ──────────────────────────────── */
+#app-section {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 130px);
+    padding-bottom: 0;
+}
+
+/* ─── Letters list ────────────────────────────────────── */
+#letters {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 20px;
+}
+
+/* Letter cards — populated by JS, keep class "letter" */
+.letter {
+    background: var(--cream);
+    border: 1px solid var(--sepia);
+    border-left: 3px solid var(--sepia-dark);
+    padding: 22px 26px;
+    margin: 16px 0;
+    border-radius: 1px;
+    box-shadow: 0 2px 12px rgba(43,29,14,0.1);
+    position: relative;
+    animation: letterIn 0.4s ease both;
+    font-size: 1.05rem;
+    line-height: 1.75;
+}
+
+.letter::before {
+    content: '❧';
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    font-size: 0.9rem;
+    color: var(--sepia);
+    opacity: 0.5;
+}
+
+@keyframes letterIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Compose section ─────────────────────────────────── */
+.write-section {
+    flex-shrink: 0;
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+    padding: 0 0 28px;
+}
+
+.write-card {
+    background: var(--cream);
+    border: 1px solid var(--sepia);
+    border-top: 3px solid var(--sepia-dark);
+    padding: 20px 24px 16px;
+    border-radius: 1px 1px 0 0;
+    box-shadow: 0 -4px 24px rgba(43,29,14,0.1);
+}
+
+.write-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--parchment-deep);
+    padding-bottom: 10px;
+}
+
+.quill-icon {
+    font-size: 1.1rem;
+    color: var(--sepia-dark);
+}
+
+.write-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sepia-dark);
+}
+
+textarea#messageInput {
+    width: 100%;
+    min-height: 96px;
+    padding: 12px 14px;
+    font-family: 'IM Fell English', Georgia, serif;
+    font-size: 1rem;
+    color: var(--ink);
+    background: var(--parchment);
+    border: 1px solid var(--parchment-deep);
+    border-radius: 1px;
+    resize: vertical;
+    outline: none;
+    line-height: 1.75;
+    transition: border-color 0.2s;
+}
+
+textarea#messageInput:focus {
+    border-color: var(--sepia);
+    background: #fff;
+}
+
+textarea#messageInput::placeholder {
+    font-style: italic;
+    color: var(--sepia);
+    opacity: 0.8;
+}
+
+.write-footer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.write-footer input#fromInput {
+    flex: 1;
+    padding: 9px 12px;
+    font-family: 'Pinyon Script', cursive;
+    font-size: 1.3rem;
+    color: var(--ink);
+    background: var(--parchment);
+    border: none;
+    border-bottom: 1px solid var(--sepia);
+    border-radius: 0;
+    outline: none;
+    transition: border-color 0.2s;
+    width: auto;
+}
+
+.write-footer input#fromInput:focus {
+    border-bottom-color: var(--ink);
+    background: transparent;
+}
+
+.write-footer input#fromInput::placeholder {
+    font-style: italic;
+    color: var(--sepia);
+    opacity: 0.7;
+}
+
+.btn-send {
+    padding: 10px 22px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--cream);
+    background: var(--red-wax);
+    border: none;
+    border-radius: 1px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s, transform 0.1s;
+    box-shadow: 0 2px 8px rgba(139,32,32,0.35);
+}
+
+.btn-send:hover  { background: var(--red-wax-light); }
+.btn-send:active { transform: scale(0.98); }
+
+/* ─── UID hint ────────────────────────────────────────── */
+#UID-sect {
+    display: block;
+    margin-top: 8px;
+    font-size: 0.75rem;
+    color: var(--sepia);
+    opacity: 0.6;
+    font-style: italic;
+}
+
+/* ─── Scrollbar ───────────────────────────────────────── */
+#letters::-webkit-scrollbar       { width: 5px; }
+#letters::-webkit-scrollbar-track { background: transparent; }
+#letters::-webkit-scrollbar-thumb { background: var(--sepia); border-radius: 4px; }
+
+/* ─── Login / register sections ──────────────────────── */
+#login-section,
+#register-section {
+    padding-top: 12px;
+}
+
+.text-logout {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.82rem;
+    font-style: italic;
+    color: rgba(245,234,214,0.35);
+    margin-right: 8px; 
+}

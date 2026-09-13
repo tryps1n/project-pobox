@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Inbox</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=IM+Fell+English:ital@0;1&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="inbox.css">
+    <link rel="stylesheet" href="envelope.css">
+    <link rel="icon" href="flower.png">
+
+</head>
+<body data-page="inbox">
+
+    <div class="parchment-bg"></div>
+    <div class="vignette"></div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="app.js"></script>
+
+    <div class="layout">
+
+        <!-- ── Sidebar ── -->
+        <aside class="sidebar">
+            <div class="sidebar-title">
+                <a href="/" class="logo">
+                    <img src="logo.png" alt="logo-image" class="logo-image" height="40">
+                </a>
+                <span class="pinyon">P.O. Box</span>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="inbox.html" class="nav-item active">
+                    <span class="nav-icon">✉</span>
+                    <span class="nav-label">Inbox</span>
+                    <span class="unread-badge" id="unread-count"></span>
+                </a>
+                <a href="compose.html" class="nav-item">
+                    <span class="nav-icon">✒</span>
+                    <span class="nav-label">Compose</span>
+                </a>
+                <a href="partner.html" class="nav-item">
+                    <span class="nav-icon">❤</span>
+                    <span class="nav-label">Partner</span>
+                </a>
+            </nav>
+
+            <div id="UID-sect">
+            </div>
+            <div class="sidebar-footer">
+                <span class="text-logout"></span>
+                <button class="btn-logout" onclick="logout()">— Sign out</button>
+            </div>
+        </aside>
+
+        <!-- ── Main ── -->
+        <main class="main">
+            <header class="inbox-header">
+                <div class="inbox-header-left">
+                    <h1 class="inbox-title">Inbox</h1>
+                    <span class="inbox-subtitle" id="inbox-subtitle">your correspondence</span>
+                </div>
+                <div class="header-rule">❧</div>
+            </header>
+
+            <!-- Letter rows injected here by inbox.js -->
+            <div id="letter-list">
+
+                <!-- Empty state shown before JS loads / if inbox is empty -->
+                <div class="empty-state" id="empty-state">
+                    <div class="empty-seal">✦</div>
+                    <p class="empty-text">No letters yet.</p>
+                    <p class="empty-sub">When one arrives, it will appear here.</p>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+</body>
+</html>

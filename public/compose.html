@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Compose</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=IM+Fell+English:ital@0;1&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="inbox.css">
+    <link rel="stylesheet" href="compose.css">
+    <link rel="icon" href="flower.png">
+</head>
+<body data-page="compose">
+
+    <div class="parchment-bg"></div>
+    <div class="vignette"></div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="app.js"></script>
+
+    <div class="layout">
+
+        <!-- ── Sidebar ── -->
+        <aside class="sidebar">
+            <div class="sidebar-title">
+                <a href="/" class="logo">
+                    <img src="logo.png" alt="logo-image" class="logo-image" height="40">
+                </a>
+                <span class="pinyon">P.O. Box</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="inbox.html" class="nav-item">
+                    <span class="nav-icon">✉</span>
+                    <span class="nav-label">Inbox</span>
+                    <span class="unread-badge" id="unread-count"></span>
+                </a>
+                <a href="compose.html" class="nav-item active">
+                    <span class="nav-icon">✒</span>
+                    <span class="nav-label">Compose</span>
+                </a>
+                <a href="partner.html" class="nav-item">
+                    <span class="nav-icon">❤</span>
+                    <span class="nav-label">Partner</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="btn-logout" onclick="logout()">— Sign out</button>
+            </div>
+        </aside>
+
+        <!-- ── Compose area ── -->
+        <main class="main">
+
+            <header class="inbox-header">
+                <div class="inbox-header-left">
+                    <h1 class="inbox-title">New Letter</h1>
+                    <span class="inbox-subtitle">write something worth keeping</span>
+                </div>
+                <div class="header-rule">❧</div>
+            </header>
+
+            <div class="compose-paper">
+
+                <div class="fold-line"></div>
+
+                <!-- To field (auto-filled, read only) -->
+                <div class="compose-field-row">
+                    <label class="compose-label">To</label>
+                    <span class="compose-to-name" id="compose-to-name">—</span>
+                </div>
+
+                <div class="compose-divider-line"></div>
+
+                <!-- From / signed as -->
+                <div class="compose-field-row">
+                    <label class="compose-label">Signed as</label>
+                    <input
+                        type="text"
+                        id="composeFrom"
+                        class="compose-inline-input script-input"
+                        placeholder="your name or nickname…"
+                        maxlength="60"
+                    >
+                </div>
+
+                <div class="compose-divider-line"></div>
+
+                <!-- Subject -->
+                <div class="compose-field-row">
+                    <label class="compose-label">Subject</label>
+                    <input
+                        type="text"
+                        id="composeSubject"
+                        class="compose-inline-input"
+                        placeholder="what is this letter about?"
+                        maxlength="120"
+                    >
+                </div>
+
+                <div class="compose-full-divider">
+                    <span class="divider-ornament">— ✦ —</span>
+                </div>
+
+                <!-- Body -->
+                <textarea
+                    id="composeBody"
+                    class="compose-body"
+                    placeholder="Dear one,&#10;&#10;Write your heart out…"
+                ></textarea>
+
+                <!-- Footer actions -->
+                <div class="compose-actions">
+                    <span class="compose-hint" id="compose-hint"></span>
+                    <div class="compose-buttons">
+                        <button class="btn-discard" onclick="discardLetter()">Discard</button>
+                        <button class="btn-seal" id="btn-seal" onclick="saveLetter()">
+                            <span id="seal-label">Seal & Send ✦</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="corner-seal-compose">✦</div>
+
+            </div>
+
+        </main>
+    </div>
+
+</body>
+</html>

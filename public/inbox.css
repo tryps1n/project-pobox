@@ -1,0 +1,381 @@
+/* ─── inbox.css ──────────────────────────────────────────
+   Extends style.css. Only inbox-specific rules live here.
+   style.css must be loaded first.
+────────────────────────────────────────────────────────── */
+
+/* ─── Layout: sidebar + main ─────────────────────────── */
+body {
+    /* override style.css column layout for this page */
+    flex-direction: row;
+    align-items: stretch;
+    padding: 0;
+    max-width: none;
+}
+
+.layout {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    z-index: 2;
+}
+
+/* ─── Sidebar ─────────────────────────────────────────── */
+.sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    background: rgba(43, 29, 14, 0.92);
+    border-right: 1px solid var(--sepia-dark);
+    display: flex;
+    flex-direction: column;
+    padding: 36px 0 24px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+    animation: sidebarIn 0.5s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+@keyframes sidebarIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+/* decorative grain overlay on sidebar */
+.sidebar::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+}
+
+.sidebar-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 24px 28px;
+    border-bottom: 1px solid rgba(196,164,90,0.2);
+    margin-bottom: 16px;
+}
+
+.sidebar-ornament {
+    color: var(--sepia);
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+.pinyon {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 2rem;
+    color: var(--parchment);
+    line-height: 1;
+    letter-spacing: 0.02em;
+}
+
+/* ─── Sidebar nav ─────────────────────────────────────── */
+.sidebar-nav {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 0 12px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    border-radius: 2px;
+    text-decoration: none;
+    color: rgba(245,234,214,0.6);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: background 0.18s, color 0.18s;
+    position: relative;
+}
+
+.nav-item:hover {
+    background: rgba(196,164,90,0.12);
+    color: var(--parchment);
+}
+
+.nav-item.active {
+    background: rgba(196,164,90,0.18);
+    color: var(--parchment);
+    border-left: 2px solid var(--sepia);
+}
+
+.nav-icon {
+    font-size: 1rem;
+    width: 18px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.nav-label {
+    flex: 1;
+}
+
+/* ─── Unread badge ────────────────────────────────────── */
+.unread-badge {
+    background: var(--red-wax);
+    color: var(--cream);
+    font-size: 0.68rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 9px;
+    display: none;               /* shown by JS when count > 0 */
+    align-items: center;
+    justify-content: center;
+    padding: 0 5px;
+    box-shadow: 0 1px 4px rgba(139,32,32,0.5);
+}
+
+.unread-badge.visible {
+    display: flex;
+}
+
+/* ─── Sidebar footer / logout ─────────────────────────── */
+.sidebar-footer {
+    padding: 16px 24px 0;
+    border-top: 1px solid rgba(196,164,90,0.15);
+}
+
+.btn-logout {
+    background: none;
+    border: none;
+    color: rgba(245,234,214,0.35);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.82rem;
+    font-style: italic;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.18s;
+    letter-spacing: 0.04em;
+}
+
+.btn-logout:hover {
+    color: rgba(245,234,214,0.7);
+}
+
+.UID-sect {
+   font-family: sans-serif;
+   font-size: 1.0rem;
+   letter-spacing: 0.05em; 
+}
+
+/* ─── Main content area ───────────────────────────────── */
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    max-width: 860px;
+    padding: 40px 48px;
+    animation: mainIn 0.55s cubic-bezier(0.22,1,0.36,1) 0.1s both;
+}
+
+@keyframes mainIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Inbox header ────────────────────────────────────── */
+.inbox-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--sepia);
+}
+
+.inbox-header-left {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+}
+
+.inbox-title {
+    font-family: 'IM Fell English', Georgia, serif;
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: 0.01em;
+}
+
+.inbox-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--sepia-dark);
+}
+
+.header-rule {
+    font-size: 1.1rem;
+    color: var(--sepia);
+    opacity: 0.5;
+}
+
+/* ─── Letter rows ─────────────────────────────────────── */
+#letter-list {
+    position: relative;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+    left: 10px;
+}
+
+/* Each row rendered by inbox.js — give it class "inbox-row" */
+.inbox-row {
+    display: block;
+    text-decoration: none;
+    color: var(--ink);
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--parchment-deep);
+    position: relative;
+    transition: background 0.15s;
+    animation: rowIn 0.35s ease both;
+    cursor: pointer;
+}
+
+/* stagger rows with nth-child delays */
+.inbox-row:nth-child(1)  { animation-delay: 0.05s; }
+.inbox-row:nth-child(2)  { animation-delay: 0.10s; }
+.inbox-row:nth-child(3)  { animation-delay: 0.15s; }
+.inbox-row:nth-child(4)  { animation-delay: 0.20s; }
+.inbox-row:nth-child(5)  { animation-delay: 0.25s; }
+.inbox-row:nth-child(6)  { animation-delay: 0.30s; }
+
+@keyframes rowIn {
+    from { opacity: 0; transform: translateX(-8px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+.inbox-row:first-child {
+    border-top: 1px solid var(--parchment-deep);
+}
+
+.inbox-row:hover {
+    background: rgba(234, 199, 118, 0.08);
+}
+
+/* unread row — bolder, left accent */
+.inbox-row.unread {
+    background: rgba(196, 158, 89, 0.7);
+    border-left: 3px solid var(--sepia-dark);
+    padding-left: 17px;
+}
+
+.inbox-row.unread:hover {
+    background: rgba(196,164,90,0.12);
+}
+
+/* envelope icon in each row */
+.row-icon {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    color: var(--sepia);
+    transition: color 0.15s;
+}
+
+.inbox-row.unread .row-icon {
+    color: var(--sepia-dark);
+}
+
+/* row layout: icon + content */
+.row-body {
+    display: grid;
+    grid-template-columns: 160px 1fr auto;
+    align-items: baseline;
+    gap: 16px;
+    padding-left: 28px;
+}
+
+.row-from {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.inbox-row:not(.unread) .row-from {
+    font-weight: 400;
+    color: var(--ink-light);
+}
+
+.row-subject {
+    font-family: 'IM Fell English', Georgia, serif;
+    font-size: 0.97rem;
+    color: var(--ink);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.inbox-row:not(.unread) .row-subject {
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--ink-light);
+}
+
+.row-date {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.82rem;
+    color: var(--sepia);
+    white-space: nowrap;
+    font-style: italic;
+}
+
+/* ─── Empty state ─────────────────────────────────────── */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+    gap: 12px;
+    animation: fadeUp 0.5s ease both;
+}
+
+.empty-seal {
+    width: 48px;
+    height: 48px;
+    background: radial-gradient(circle at 38% 35%, var(--parchment-deep), var(--sepia));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.5);
+    font-size: 1.1rem;
+    box-shadow: 0 2px 8px rgba(43,29,14,0.15);
+    margin-bottom: 8px;
+}
+
+.empty-text {
+    font-family: 'IM Fell English', Georgia, serif;
+    font-size: 1.1rem;
+    color: var(--ink-light);
+}
+
+.empty-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--sepia);
+}
+

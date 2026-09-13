@@ -1,0 +1,330 @@
+/* ─── partner.css ────────────────────────────────────────
+   Load order: style.css → inbox.css → partner.css
+────────────────────────────────────────────────────────── */
+.partner-card {
+    background: var(--cream);
+    border: 1px solid var(--sepia);
+    padding: 32px 36px;
+    max-width: 620px;
+    margin-bottom: 32px;
+    position: relative;
+    box-shadow:
+        0 1px 0 var(--parchment-deep),
+        0 8px 32px rgba(43,29,14,0.1);
+    animation: fadeUp 0.45s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.partner-card::before,
+.partner-card::after {
+    content: '';
+    position: absolute;
+    left: 14px; right: 14px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--sepia), transparent);
+    opacity: 0.3;
+}
+.partner-card::before { top: 14px; }
+.partner-card::after  { bottom: 14px; }
+
+.partner-card-loading {
+    display: flex;
+    justify-content: center;
+    padding: 16px 0;
+    color: var(--sepia);
+}
+
+.loading-ornament {
+    font-size: 1.4rem;
+    animation: sway 2s ease-in-out infinite;
+    display: inline-block;
+}
+
+@keyframes sway {
+    0%, 100% { transform: rotate(-10deg); opacity: 0.5; }
+    50%       { transform: rotate(10deg);  opacity: 1; }
+}
+
+/* paired state */
+.partner-paired {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.partner-seal {
+    width: 52px;
+    height: 52px;
+    background: radial-gradient(circle at 38% 35%, var(--red-wax-light), var(--red-wax));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.75);
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    box-shadow: 0 3px 10px rgba(139,32,32,0.35);
+}
+
+.partner-info {
+    flex: 1;
+}
+
+.partner-name {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 2rem;
+    color: var(--ink);
+    display: block;
+    line-height: 1.1;
+}
+
+.partner-email {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.88rem;
+    font-style: italic;
+    color: var(--sepia);
+    display: block;
+    margin-top: 4px;
+}
+
+.partner-since {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.8rem;
+    color: var(--sepia);
+    opacity: 0.7;
+    margin-top: 2px;
+    display: block;
+    letter-spacing: 0.04em;
+}
+
+.btn-unpair {
+    background: none;
+    border: none;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.82rem;
+    font-style: italic;
+    color: var(--sepia);
+    opacity: 0.5;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: opacity 0.18s, color 0.18s;
+    padding: 0;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.btn-unpair:hover {
+    opacity: 1;
+    color: var(--red-wax);
+}
+
+/* no partner state */
+.partner-none {
+    text-align: center;
+    padding: 8px 0;
+}
+
+.partner-none-title {
+    font-family: 'IM Fell English', Georgia, serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--ink-light);
+    display: block;
+    margin-bottom: 6px;
+}
+
+.partner-none-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--sepia);
+}
+
+/* ─── Section blocks ──────────────────────────────────── */
+.section-block {
+    max-width: 620px;
+    margin-bottom: 36px;
+    animation: fadeUp 0.5s cubic-bezier(0.22,1,0.36,1) 0.1s both;
+}
+
+.section-title {
+    font-family: 'IM Fell English', Georgia, serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 6px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--parchment-deep);
+    letter-spacing: 0.01em;
+}
+
+.section-desc {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.92rem;
+    font-style: italic;
+    color: var(--sepia-dark);
+    margin-bottom: 16px;
+}
+
+/* ─── Send request row ────────────────────────────────── */
+.request-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.partner-input {
+    flex: 1;
+    padding: 10px 14px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    color: var(--ink);
+    background: var(--parchment);
+    border: 1px solid var(--parchment-deep);
+    border-bottom: 1px solid var(--sepia);
+    outline: none;
+    border-radius: 1px;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.partner-input:focus {
+    background: var(--cream);
+    border-color: var(--sepia-dark);
+}
+
+.partner-input::placeholder {
+    color: var(--sepia);
+    opacity: 0.6;
+    font-style: italic;
+}
+
+.btn-send-request {
+    padding: 10px 24px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--cream);
+    background: var(--ink);
+    border: none;
+    border-radius: 1px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s, transform 0.1s;
+    box-shadow: 0 2px 8px rgba(43,29,14,0.2);
+}
+
+.btn-send-request:hover   { background: var(--ink-light); }
+.btn-send-request:active  { transform: scale(0.98); }
+.btn-send-request:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.request-hint {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--sepia);
+    margin-top: 8px;
+    min-height: 1.2em;
+}
+
+.request-hint.error { color: var(--red-wax); }
+.request-hint.success { color: #4a7c4e; }
+
+/* ─── Incoming request cards ──────────────────────────── */
+.request-card {
+    background: var(--cream);
+    border: 1px solid var(--sepia);
+    border-left: 3px solid var(--sepia-dark);
+    padding: 18px 22px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    animation: rowIn 0.35s ease both;
+    box-shadow: 0 2px 10px rgba(43,29,14,0.07);
+}
+
+@keyframes rowIn {
+    from { opacity: 0; transform: translateX(-8px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+.request-info {
+    flex: 1;
+}
+
+.request-from-name {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 1.5rem;
+    color: var(--ink);
+    display: block;
+    line-height: 1.1;
+}
+
+.request-from-email {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--sepia);
+    display: block;
+    margin-top: 3px;
+}
+
+.request-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.btn-approve {
+    padding: 8px 18px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--cream);
+    background: var(--red-wax);
+    border: none;
+    border-radius: 1px;
+    cursor: pointer;
+    transition: background 0.18s, transform 0.1s;
+    box-shadow: 0 2px 6px rgba(139,32,32,0.3);
+}
+
+.btn-approve:hover  { background: var(--red-wax-light); }
+.btn-approve:active { transform: scale(0.97); }
+
+.btn-decline {
+    padding: 8px 14px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.88rem;
+    font-style: italic;
+    color: var(--sepia);
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.18s;
+}
+
+.btn-decline:hover { color: var(--ink); }
+
+/* ─── Empty requests ──────────────────────────────────── */
+.empty-requests {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.92rem;
+    font-style: italic;
+    color: var(--sepia);
+    opacity: 0.7;
+    padding: 12px 0;
+}
