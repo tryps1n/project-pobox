@@ -17,3 +17,9 @@ The backend uses simple Firebase function calls made using JavaScript for authen
 ## Website URL
 
 The website can be visited using this link [here](https://project-pobox.web.app/).
+
+## Screenshots
+
+![ss1](resources/ss1.jpeg)
+![ss2](resources/ss2.jpeg)
+![ss2](resources/ss3.jpeg)
