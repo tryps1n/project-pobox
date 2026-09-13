@@ -1,6 +1,6 @@
 # Project PO Box
 
-A small JavaScript and Firebase based project made for my girlfriend that allows you to send letters to your partner. 
+A small JavaScript and Firebase based project (made for my girlfriend) that allows you to send letters to your partner. 
 Features animations dislaying stacks of letters sent to the receiver, with dates etched on the envelopes. 
 Clicking the envelopes redirects to a different page featuring an opening animation with the letter being displayed.
 
